@@ -8,5 +8,12 @@
                 <span class="sidebar-text">Home</span>
             </a>
         </li>
+
+        <li>
+            <a href="/assignments" class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-700">
+                <x-icon name="clipboard-document-list" />
+                <span class="sidebar-text transition-all duration-300">Assignments</span>
+            </a>
+        </li>
     </ul>
 </aside>
