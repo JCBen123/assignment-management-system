@@ -55,12 +55,11 @@
                 </p>
             </div>
 
-            <button
-                type="button" id="new-assignment"
-                class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700"
-            >
-                Add Assignment
-            </button>
+            <flux:modal.trigger name="new-assignment">
+                <flux:button variant="primary" class="inline-flex items-center justify-center cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700">
+                    Add Assignment
+                </flux:button>
+            </flux:modal.trigger>
         </div>
 
         <div class="rounded-2xl mt-6 border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -77,23 +76,6 @@
                         </button>
                     @endforeach
                 </div>
-
-                <form method="GET" class="flex items-center gap-2">
-                    <input type="hidden" name="active_tab" x-model="activeTab">
-                    <label class="text-sm text-gray-600 dark:text-gray-300">Sort by</label>
-                    <select name="sort_by" x-model="sortBy" class="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                        <option value="deadline">Deadline</option>
-                        <option value="name">Name</option>
-                    </select>
-                    <input type="hidden" name="sort_dir" :value="sortDirection">
-                    <button
-                        type="button"
-                        class="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
-                        @click="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'"
-                    >
-                        <span x-text="sortDirection === 'asc' ? 'Asc' : 'Desc'"></span>
-                    </button>
-                </form>
             </div>
 
             <div class="mt-6 space-y-3">
@@ -136,12 +118,20 @@
                                             {{ $assignment['status'] }}
                                         </span>
 
-                                        <button type="button" class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium
-                                            text-gray-700 shadow-sm hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
-                                            @click="selectedAssignment = { title: '{{ $assignment['title'] }}', due: '{{ $assignment['due'] }}', status: '{{ $assignment['status'] }}', description: '{{ addslashes($assignment['description']) }}' }; showViewModal = true"
-                                        >
-                                            View
-                                        </button>
+                                        <flux:modal.trigger name="view-assignment">
+                                            <flux:button type="button"
+                                                class="ml-2 inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium
+                                                    text-gray-700 shadow-sm hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 cursor-pointer"
+                                                @click="selectedAssignment = {
+                                                    title: '{{ $assignment['title'] }}',
+                                                    due: '{{ $assignment['due'] }}',
+                                                    status: '{{ $assignment['status'] }}',
+                                                    description: '{{ addslashes($assignment['description']) }}'
+                                                }"
+                                            >
+                                                View
+                                            </flux:button>
+                                        </flux:modal.trigger>
                                     </div>
                                 </div>
                             @endforeach
@@ -152,8 +142,9 @@
         </div>
 
         @include('modals.new-assignment-modal')
+        @include('modals.assignment-details-modal')
 
-        <div x-show="showViewModal" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+        {{-- <div x-show="showViewModal" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
             <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800">
                 <div class="flex items-start justify-between gap-3">
                     <div>
@@ -176,6 +167,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

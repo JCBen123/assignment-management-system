@@ -65,6 +65,16 @@ select:focus[data-flux-control] {
     @apply size-4;
 } */
 
-* {
-    @apply ease-in-out transition-colors duration-300;
+nav, body, div, button{
+    transition-property: background-color, background-image;
+    @apply transition-colors duration-300 ease-in-out;
+}
+
+button, span {
+    transition-property: background-color, background-image;
+}
+
+.sidebar-text {
+    transition: opacity 300ms ease-in-out, width 300ms ease-in-out;
+    white-space: nowrap;
 }

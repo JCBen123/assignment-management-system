@@ -1,7 +1,7 @@
 <nav class="w-full h-16 bg-gray-300 text-gray-900 shadow border-b border-gray-800 flex items-center justify-between px-6
     dark:bg-gray-800 dark:text-white dark:border-gray-700">
     <div class="h-full flex items-center gap-4">
-        <flux:icon name="bars-3" class="h-10 w-auto mt-3 mb-3 cursor-pointer" id="sidebar-toggle" />
+        <flux:icon name="bars-3" class="h-10 w-auto mt-3 mb-3 cursor-pointer transition-none" id="sidebar-toggle" />
         <a href="/" class="h-full flex items-center">
             <img src="{{ asset('storage/logo/ams-light.png') }}" alt="logo-light" class="h-10 w-auto mt-3 mb-3 block dark:hidden">
             <img src="{{ asset('storage/logo/ams-dark.png') }}" alt="logo-dark" class="h-10 w-auto mt-3 mb-3 hidden dark:block">
@@ -9,12 +9,14 @@
     </div>
 
     <div class="flex items-center gap-4">
-        <livewire:dark-mode-toggle />
+        <flux:button x-data x-on:click="$flux.appearance = $flux.appearance === 'dark' ? 'light' : 'dark'"
+            icon="moon" variant="subtle" aria-label="Toggle dark mode"
+        />
 
         <!-- Notifications button -->
         <div x-data="{ open: false }" class="relative">
             <button class="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" title="Notifications" aria-label="Notifications">
-                <flux:icon name="bell-alert" class="cursor-pointer" />
+                <flux:icon name="bell-alert" class="cursor-pointer transition-none" />
             </button>
         </div>
 

@@ -14,9 +14,11 @@
                 </p>
             </div>
 
-            <button id="new-subject" type="button" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700">
-                Add New Subject
-            </button>
+            <flux:modal.trigger name="new-subject">
+                <flux:button variant="primary" class="inline-flex items-center justify-center cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700">
+                    Add New Subject
+                </flux:button>
+            </flux:modal.trigger>
         </div>
 
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -89,20 +91,20 @@
                                             };
                                         @endphp
 
-                                        <x-tooltip text="{{ ucfirst($status) }}" position="bottom">
+                                        <flux:tooltip content="{{ ucfirst($status) }}" position="bottom">
                                             <div class="flex items-center rounded-full border border-gray-200 px-2 py-1.5 text-sm dark:border-gray-700 {{ $statusClass }}">
                                                 <span class="inline-flex h-6 w-10 items-center justify-center rounded-full text-xs font-semibold">
                                                     <flux:icon name="{{ $statusIcon }}" />
                                                 </span>
                                                 <span class="ml-1 text-xs font-medium text-gray-600 dark:text-gray-300">{{ $count }}</span>
                                             </div>
-                                        </x-tooltip>
+                                        </flux:tooltip>
 
                                     @endforeach
                                 </div>
 
-                                <a href="/assignments/details" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-100
-                                    dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200">
+                                <a href="/assignments/details" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200
+                                    dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" wire:navigate>
                                     View Assignments
                                 </a>
                             </div>

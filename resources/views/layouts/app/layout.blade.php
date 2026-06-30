@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" class="{{ session('darkMode') ? 'dark' : '' }}">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>
             @yield('title', 'Assignment Management System')
         </title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://cdn.tailwindcss.com"></script>
-
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        @fluxAppearance
 
         <script>
-            tailwind.config = {
-                darkMode: 'class'
-            }
+            window.addEventListener('DOMContentLoaded', () => {
+                if (!localStorage.getItem('flux.appearance')) {
+                    localStorage.setItem(
+                        'flux.appearance',
+                        document.documentElement.classList.contains('dark')
+                            ? 'dark'
+                            : 'light'
+                    )
+                }
+            })
         </script>
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @livewireStyles
     </head>
@@ -33,14 +39,7 @@
         @stack('scripts')
 
         @livewireScripts
-
-        <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('dark-mode-changed', (event) => {
-                    document.documentElement.classList.toggle('dark', event.dark);
-                });
-            });
-        </script>
+        @fluxScripts
     </body>
 
 </html>
