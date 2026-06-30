@@ -9,6 +9,7 @@
     </div>
 
     <div class="flex items-center gap-4">
+        <!-- Dark Mode button -->
         <flux:button x-data x-on:click="$flux.appearance = $flux.appearance === 'dark' ? 'light' : 'dark'"
             icon="moon" variant="subtle" aria-label="Toggle dark mode"
         />

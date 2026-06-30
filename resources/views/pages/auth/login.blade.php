@@ -55,5 +55,9 @@
             <span>{{ __('Don\'t have an account?') }}</span>
             <u><a href="/register" wire:navigate>{{ __('Sign up') }}</a></u>
         </div>
+
+        <a href="/" class="text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400" wire:navigate>
+            {{ __('Return to dashboard') }}
+        </a>
     </div>
 </x-layouts::auth>
