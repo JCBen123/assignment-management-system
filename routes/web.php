@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,16 +33,33 @@ Route::get('/settings', function () {
     return view('pages.settings.settings');
 });
 
-Route::middleware('auth')->get('/profile', function() {
-    return view('pages.settings.profile');
-})->name('profile');
+// Settings
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'mount'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-Route::middleware('auth')->get('/security', function() {
-    return view('pages.settings.security');
-})->name('security');
+    Route::get('/security', function () {
+        return view('pages.settings.security');
+    })->name('security');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/security/update-password', function () {
+        return view('pages.settings.update-password');
+    })->name('security.update-password');
+
+    Route::put('/security/update-password', [AuthController::class, 'updatePassword'])->name('security.update-password');
+
+    Route::get('/security/verify-email', function () {
+        return view('pages.settings.verify-email');
+    })->name('security.verify-email');
+
+    // Route::post('/security/verify-email', [AuthController::class, 'resendVerificationNotification'])->name('security.verification.resend');
+
+    Route::get('/security/enable-2fa', function () {
+        return view('pages.settings.enable-2fa');
+    })->name('security.enable-2fa');
+
+    // Add route for delete account here
+    // Route::delete('/others/delete-account', [AuthController::class, 'deleteAccount'])->name('delete-account');
 });
 
 require __DIR__.'/settings.php';

@@ -4,43 +4,27 @@
 
 @section('content')
     <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+        <form method="POST" action="{{ route('profile.update') }}" class="my-6 w-full space-y-6">
+            @csrf
+            @method('PUT')
 
-            <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
+            <flux:input name="name" :label="__('Name')" type="text" autofocus autocomplete="name"
+                value="{{ old('name', $user->name) }}" required />
 
-                {{-- @if ($this->hasUnverifiedEmail)
-                    <div>
-                        <flux:text class="mt-4">
-                            {{ __('Your email address is unverified.') }}
+            <flux:input name="email" :label="__('Email')" type="email" autocomplete="email"
+                value="{{ old('email', $user->email) }}" disabled />
 
-                            <flux:link class="text-sm cursor-pointer" wire:click.prevent="resendVerificationNotification">
-                                {{ __('Click here to re-send the verification email.') }}
-                            </flux:link>
-                        </flux:text>
+            <div class="flex items-center gap-6">
+                <flux:button variant="primary" type="submit" class="cursor-pointer" data-test="update-profile-button">
+                    {{ __('Save') }}
+                </flux:button>
 
-                        @if (session('status') === 'verification-link-sent')
-                            <flux:text class="mt-2 font-medium !dark:text-green-400 !text-green-600">
-                                {{ __('A new verification link has been sent to your email address.') }}
-                            </flux:text>
-                        @endif
-                    </div>
-                @endif --}}
-            </div>
-
-            <div class="flex items-center gap-4">
-                <div class="flex items-center justify-end">
-                    <flux:button variant="primary" type="submit" class="w-full cursor-pointer"
-                        data-test="update-profile-button">
-                        {{ __('Save') }}
-                    </flux:button>
-                </div>
+                @if (session('status'))
+                    <flux:text class="font-medium !text-green-600 !dark:text-green-400">
+                        {{ session('status') }}
+                    </flux:text>
+                @endif
             </div>
         </form>
-
-        {{-- @if ($this->showDeleteUser)
-            <livewire:pages::settings.delete-user-form />
-        @endif --}}
     </x-pages::settings.layout>
 @endsection
