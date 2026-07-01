@@ -27,6 +27,19 @@ Route::get('/assignments/details', function () {
     return view('pages.assignments.details');
 });
 
+// Settings
+Route::get('/settings', function () {
+    return view('pages.settings.settings');
+});
+
+Route::middleware('auth')->get('/profile', function() {
+    return view('pages.settings.profile');
+})->name('profile');
+
+Route::middleware('auth')->get('/security', function() {
+    return view('pages.settings.security');
+})->name('security');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 });

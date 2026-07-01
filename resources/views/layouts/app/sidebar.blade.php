@@ -18,4 +18,12 @@
             </a>
         </li>
     </ul>
+
+    <div class="mt-auto border-t border-gray-800/20 pt-3 dark:border-gray-700/50">
+        <a href="/settings" class="flex w-full items-center gap-3 px-3 py-2 rounded
+            hover:bg-gray-200 dark:hover:bg-gray-700 relative">
+            <flux:icon name="cog-6-tooth" />
+            <span class="sidebar-text">Settings</span>
+        </a>
+    </div>
 </aside>
