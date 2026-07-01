@@ -6,6 +6,15 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Auth
+Route::get('/login', function () {
+    return view('pages.auth.login');
+});
+
+Route::get('/register', function () {
+    return view('pages.auth.register');
+});
+
 // Assignments
 Route::get('/assignments', function () {
     return view('pages.assignments.menu');

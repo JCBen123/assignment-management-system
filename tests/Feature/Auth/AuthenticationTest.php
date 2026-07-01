@@ -9,6 +9,25 @@ test('login screen can be rendered', function () {
     $response->assertOk();
 });
 
+test('guest navbar shows login and register links', function () {
+    $response = $this->get('/');
+
+    $response
+        ->assertOk()
+        ->assertSee(route('login'))
+        ->assertSee(route('register'));
+});
+
+test('authenticated navbar shows logout action', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->get('/');
+
+    $response
+        ->assertOk()
+        ->assertSee('Log out');
+});
+
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 
