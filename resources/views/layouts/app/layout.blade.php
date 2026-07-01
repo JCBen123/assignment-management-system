@@ -6,6 +6,10 @@
             @yield('title', 'Assignment Management System')
         </title>
 
+        <link rel="icon" href="{{ asset('storage/logo/ams-light.png') }}" media="(prefers-color-scheme: light)">
+        <link rel="icon" href="{{ asset('storage/logo/ams-dark.png') }}" media="(prefers-color-scheme: dark)">
+        <link rel="apple-touch-icon" href="{{ asset('storage/logo/ams-light.png') }}">
+
         @fluxAppearance
 
         <script>

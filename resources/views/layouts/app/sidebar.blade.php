@@ -3,14 +3,16 @@
     dark:bg-gray-900 dark:text-white dark:border-gray-700">
     <ul class="space-y-3">
         <li>
-            <a href="/" class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 relative">
+            <a href="/" class="flex items-center gap-3 px-3 py-2 rounded
+            hover:bg-gray-200 dark:hover:bg-gray-700 relative">
                 <flux:icon name="home" />
                 <span class="sidebar-text">Home</span>
             </a>
         </li>
 
         <li>
-            <a href="/assignments" class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 relative">
+            <a href="/assignments" class="flex items-center gap-3 px-3 py-2 rounded
+                hover:bg-gray-200 dark:hover:bg-gray-700 relative">
                 <flux:icon name="clipboard-document-list" />
                 <span class="sidebar-text">Assignments</span>
             </a>
