@@ -10,27 +10,23 @@
             </flux:text>
         </div>
 
-        <form class="space-y-4">
+        <form method="POST" action="{{ route('assignments.add') }}" class="space-y-4">
+            @csrf
+            <input type="hidden" value="{{ $subject['id'] }}" name="subject_id">
+
             <flux:field>
                 <flux:label>Assignment Title</flux:label>
-                <flux:input
-                    id="assignment-title"
-                    type="text"
-                    placeholder="e.g. Chapter Review"
-                />
+                <flux:input name="title" type="text" placeholder="e.g. Chapter Review" />
             </flux:field>
 
             <flux:field>
                 <flux:label>Due Date</flux:label>
-                <flux:input
-                    id="deadline"
-                    type="date"
-                />
+                <flux:input name="deadline" type="date" />
             </flux:field>
 
             <flux:field>
                 <flux:label>Status</flux:label>
-                <flux:select id="status">
+                <flux:select name="status">
                     <flux:select.option>
                         Pending
                     </flux:select.option>
@@ -43,16 +39,21 @@
                 </flux:select>
             </flux:field>
 
+            <flux:field>
+                <flux:label>Additional Remarks</flux:label>
+                <flux:textarea name="details" rows="4" class="resize-none" />
+            </flux:field>
+
             <div class="flex justify-end gap-3 pt-2">
+                <flux:button type="submit" variant="primary" class="cursor-pointer">
+                    Save Assignment
+                </flux:button>
+
                 <flux:modal.close>
-                    <flux:button variant="ghost">
+                    <flux:button variant="ghost" class="cursor-pointer">
                         Cancel
                     </flux:button>
                 </flux:modal.close>
-
-                <flux:button type="submit" variant="primary">
-                    Save Assignment
-                </flux:button>
             </div>
         </form>
     </div>
