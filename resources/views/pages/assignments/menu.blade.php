@@ -3,6 +3,19 @@
 @section('title', 'Assignments Dashboard')
 
 @section('content')
+
+    @if (session('status'))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                Flux.toast({
+                    heading: 'Success',
+                    text: "{{ session('status') }}",
+                    variant: 'success',
+                })
+            })
+        </script>
+    @endif
+
     <div class="space-y-6">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
@@ -32,40 +45,24 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4">
-                @php
-                    $subjects = [
-                        [
-                            'name' => 'Mathematics',
-                            'code' => 'MTH101',
-                            'assignments' => [
-                                ['title' => 'Algebra Quiz', 'due' => 'Jun 30, 2026', 'status' => 'Pending'],
-                                ['title' => 'Geometry Worksheet', 'due' => 'Jul 05, 2026', 'status' => 'In Review'],
-                            ],
-                        ],
-                        [
-                            'name' => 'Science',
-                            'code' => 'SCI202',
-                            'assignments' => [
-                                ['title' => 'Lab Report', 'due' => 'Jul 08, 2026', 'status' => 'Pending'],
-                                ['title' => 'Research Summary', 'due' => 'Jul 11, 2026', 'status' => 'Completed'],
-                            ],
-                        ],
-                        [
-                            'name' => 'English',
-                            'code' => 'ENG201',
-                            'assignments' => [
-                                ['title' => 'Literature Review', 'due' => 'Jul 18, 2026', 'status' => 'Pending'],
-                            ],
-                        ],
-                    ];
-                @endphp
 
-                @foreach ($subjects as $subject)
+                @forelse ($subjects as $subject)
+
                     <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/60">
                         <div class="flex items-start justify-between gap-3">
-                            <div>
-                                <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $subject['name'] }}</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ $subject['code'] }}</p>
+                            <div class="flex items-center gap-2">
+                                <div>
+                                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $subject['name'] }}</h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ $subject['code'] }}</p>
+                                </div>
+                                <flux:modal.trigger name="edit-subject">
+                                    <flux:button variant="ghost" size="sm" class="cursor-pointer"
+                                        data-id="{{ $subject->id }}" data-name="{{ $subject->name }}"
+                                        data-code="{{ $subject->code }}" data-remarks="{{ $subject->remarks }}"
+                                    >
+                                        <flux:icon name="pencil-square" />
+                                    </flux:button>
+                                </flux:modal.trigger>
                             </div>
 
                             <div class="flex items-center gap-2">
@@ -103,18 +100,28 @@
                                     @endforeach
                                 </div>
 
-                                <a href="/assignments/details" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200
+                                <a href="{{ route('subjects.details', ['subject' => $subject->id]) }}" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200
                                     dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" wire:navigate>
                                     View Assignments
                                 </a>
                             </div>
                         </div>
                     </div>
-                @endforeach
+
+                @empty
+
+                    <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-900/60">
+                        <p class="text-gray-600 dark:text-gray-300">
+                            No subjects added
+                        </p>
+                    </div>
+
+                @endforelse
             </div>
         </div>
     </div>
 
     @include('modals.new-subject-modal')
+    @include('modals.edit-subject-modal')
 
 @endsection

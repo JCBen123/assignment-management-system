@@ -4,18 +4,6 @@
 
 @section('content')
     @php
-        $subject = [
-            'code' => 'MTH101',
-            'name' => 'Mathematics',
-            'description' => 'Core mathematics assignments for the current term.',
-        ];
-
-        $assignments = [
-            ['title' => 'Algebra Quiz', 'status' => 'Pending', 'due' => 'Jun 30, 2026', 'description' => 'Complete the algebra quiz and submit before the deadline.'],
-            ['title' => 'Geometry Worksheet', 'status' => 'Overdue', 'due' => 'Jun 20, 2026', 'description' => 'Review the geometry worksheet and submit your corrections.'],
-            ['title' => 'Problem Set Review', 'status' => 'Completed', 'due' => 'Jun 12, 2026', 'description' => 'Review the corrected problem set with feedback from the instructor.'],
-        ];
-
         $activeTab = request()->query('active_tab', 'all');
         $sortBy = request()->query('sort_by', 'deadline');
         $sortDirection = request()->query('sort_dir', 'asc');
@@ -38,17 +26,13 @@
         ];
     @endphp
 
-    <div x-data="{
-        activeTab: '{{ $activeTab }}',
-        showViewModal: false,
-        selectedAssignment: null,
-        sortBy: '{{ $sortBy }}',
-        sortDirection: '{{ $sortDirection }}'
-    }">
+    <div x-data="{activeTab: '{{ $activeTab }}', showViewModal: false, selectedAssignment: null,
+        sortBy: '{{ $sortBy }}', sortDirection: '{{ $sortDirection }}'}"
+    >
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    {{ $subject['code'] }}: {{ $subject['name'] }}
+                    {{ $subject['code'] }} - {{ $subject['name'] }}
                 </h1>
                 <p class="text-gray-700 dark:text-gray-300">
                     {{ $subject['description'] }}
@@ -98,11 +82,42 @@
                         @else
                             @foreach ($filteredAssignments as $assignment)
                                 <div class="flex flex-col gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between dark:border-gray-700 dark:bg-gray-900/60">
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2">
                                         <div>
                                             <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $assignment['title'] }}</h3>
-                                            <p class="text-sm text-gray-600 dark:text-gray-300">Due: {{ $assignment['due'] }}</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">
+                                                Due: {{ \Carbon\Carbon::parse($assignment->deadline)->format('d M Y') }}
+                                                @if ($assignment->status != 'completed')
+                                                    @php
+                                                        $today = \Carbon\Carbon::today();
+                                                        $deadline = \Carbon\Carbon::parse($assignment->deadline)->startOfDay();
+                                                        $days = $today->diffInDays($deadline, false);
+                                                    @endphp
+
+                                                    @if ($days == 1)
+                                                        (Tomorrow)
+                                                    @elseif ($days == -1)
+                                                        (Yesterday)
+                                                    @elseif ($days > 1)
+                                                        ({{ $days }} days left)
+                                                    @elseif ($days < -1)
+                                                        ({{ abs($days) }} days overdue)
+                                                    @else
+                                                        (Due today)
+                                                    @endif
+                                                @else
+                                                    (Completed on {{ \Carbon\Carbon::parse($assignment->completion_date)->format('d M Y') }})
+                                                @endif
+                                            </p>
                                         </div>
+                                        <flux:modal.trigger name="edit-assignment">
+                                            <flux:button variant="ghost" size="sm" class="cursor-pointer"
+                                                data-id="{{ $assignment->id }}" data-title="{{ $assignment->title }}"
+                                                data-deadline="{{ $assignment->deadline }}" data-remarks="{{ $assignment->remarks }}"
+                                            >
+                                                <flux:icon name="pencil-square" />
+                                            </flux:button>
+                                        </flux:modal.trigger>
                                     </div>
 
                                     <div>
@@ -115,7 +130,7 @@
                                         @endphp
 
                                         <span class="inline-flex items-center rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold {{ $statusClass }} dark:border-gray-700 dark:bg-gray-800">
-                                            {{ $assignment['status'] }}
+                                            {{ ucfirst($assignment['status']) }}
                                         </span>
 
                                         <flux:modal.trigger name="view-assignment">
@@ -123,8 +138,9 @@
                                                 class="ml-2 inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium
                                                     text-gray-700 shadow-sm hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 cursor-pointer"
                                                 @click="selectedAssignment = {
+                                                    id: '{{ $assignment['id'] }}',
                                                     title: '{{ $assignment['title'] }}',
-                                                    due: '{{ $assignment['due'] }}',
+                                                    due: '{{ $assignment['deadline'] }}',
                                                     status: '{{ $assignment['status'] }}',
                                                     description: '{{ addslashes($assignment['description']) }}'
                                                 }"
@@ -142,31 +158,7 @@
         </div>
 
         @include('modals.new-assignment-modal')
+        @include('modals.edit-assignment-modal')
         @include('modals.assignment-details-modal')
-
-        {{-- <div x-show="showViewModal" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-            <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800">
-                <div class="flex items-start justify-between gap-3">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white" x-text="selectedAssignment?.title || 'Assignment Details'"></h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300" x-text="selectedAssignment?.status || ''"></p>
-                    </div>
-                    <button type="button" class="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700" @click="showViewModal = false">
-                        ✕
-                    </button>
-                </div>
-
-                <div class="mt-6 space-y-4 text-sm text-gray-700 dark:text-gray-200">
-                    <div>
-                        <p class="font-semibold text-gray-900 dark:text-white">Due Date</p>
-                        <p x-text="selectedAssignment?.due || ''"></p>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-900 dark:text-white">Description</p>
-                        <p x-text="selectedAssignment?.description || ''"></p>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
 @endsection

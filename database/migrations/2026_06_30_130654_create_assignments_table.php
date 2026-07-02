@@ -16,9 +16,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('subject_id');
             $table->string('title', 255);
-            $table->text('details')->nullable();
             $table->date('deadline');
-            $table->enum('status', array_column(AssignmentStatus::cases(), 'value'))->default(AssignmentStatus::PENDING);
+            $table->date('completion_date')->nullable();
+            $table->enum('status', array_column(AssignmentStatus::cases(), 'value'));
+            $table->text('remarks')->nullable();
             $table->timestamps();
 
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');

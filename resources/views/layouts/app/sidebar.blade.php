@@ -11,10 +11,10 @@
         </li>
 
         <li>
-            <a href="/assignments" class="flex items-center gap-3 px-3 py-2 rounded
+            <a href="/subjects" class="flex items-center gap-3 px-3 py-2 rounded
                 hover:bg-gray-200 dark:hover:bg-gray-700 relative">
                 <flux:icon name="clipboard-document-list" />
-                <span class="sidebar-text">Assignments</span>
+                <span class="sidebar-text">Subjects</span>
             </a>
         </li>
     </ul>
