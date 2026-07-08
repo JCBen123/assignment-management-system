@@ -18,7 +18,7 @@
         <div class="space-y-4 text-sm">
             <div>
                 <flux:heading size="sm">Due Date</flux:heading>
-                <flux:text x-text="selectedAssignment?.due || ''"></flux:text>
+                <flux:text x-text="selectedAssignment?.deadline || ''"></flux:text>
             </div>
 
             <div>

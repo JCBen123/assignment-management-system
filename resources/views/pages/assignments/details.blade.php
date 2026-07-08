@@ -110,14 +110,16 @@
                                                 @endif
                                             </p>
                                         </div>
-                                        <flux:modal.trigger name="edit-assignment">
-                                            <flux:button variant="ghost" size="sm" class="cursor-pointer"
-                                                data-id="{{ $assignment->id }}" data-title="{{ $assignment->title }}"
-                                                data-deadline="{{ $assignment->deadline }}" data-remarks="{{ $assignment->remarks }}"
-                                            >
-                                                <flux:icon name="pencil-square" />
-                                            </flux:button>
-                                        </flux:modal.trigger>
+                                        @if ($assignment->status != 'completed')
+                                            <flux:modal.trigger name="edit-assignment">
+                                                <flux:button variant="ghost" size="sm" class="cursor-pointer"
+                                                    data-id="{{ $assignment->id }}" data-title="{{ $assignment->title }}"
+                                                    data-deadline="{{ $assignment->deadline }}" data-remarks="{{ $assignment->remarks }}"
+                                                >
+                                                    <flux:icon name="pencil-square" />
+                                                </flux:button>
+                                            </flux:modal.trigger>
+                                        @endif
                                     </div>
 
                                     <div>
@@ -140,9 +142,9 @@
                                                 @click="selectedAssignment = {
                                                     id: '{{ $assignment['id'] }}',
                                                     title: '{{ $assignment['title'] }}',
-                                                    due: '{{ $assignment['deadline'] }}',
+                                                    deadline: '{{ $assignment['deadline'] }}',
                                                     status: '{{ $assignment['status'] }}',
-                                                    description: '{{ addslashes($assignment['description']) }}'
+                                                    remarks: '{{ addslashes($assignment['remarks']) }}'
                                                 }"
                                             >
                                                 View

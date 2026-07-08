@@ -25,21 +25,6 @@
             </flux:field>
 
             <flux:field>
-                <flux:label>Status</flux:label>
-                <flux:select name="status">
-                    <flux:select.option>
-                        Pending
-                    </flux:select.option>
-                    <flux:select.option>
-                        Completed
-                    </flux:select.option>
-                    <flux:select.option>
-                        Overdue
-                    </flux:select.option>
-                </flux:select>
-            </flux:field>
-
-            <flux:field>
                 <flux:label>Additional Remarks</flux:label>
                 <flux:textarea name="details" rows="4" class="resize-none" />
             </flux:field>

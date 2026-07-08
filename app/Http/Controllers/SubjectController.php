@@ -30,7 +30,7 @@ class SubjectController extends Controller
             'remarks' => $validated['remarks'] ?? null,
         ]);
 
-        return redirect()->route('assignments.menu')->with('status', 'Subject added successfully.');
+        return redirect()->route('subjects.menu')->with('status', 'Subject added successfully.');
     }
 
     public function editSubject(Request $request)
@@ -49,6 +49,6 @@ class SubjectController extends Controller
             'remarks' => $validated['remarks'] ?? null,
         ]);
 
-        return redirect()->route('assignments.menu')->with('status', 'Subject updated successfully.');
+        return redirect()->route('subjects.menu')->with('status', 'Subject updated successfully.');
     }
 }
