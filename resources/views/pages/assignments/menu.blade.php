@@ -100,10 +100,22 @@
                                     @endforeach
                                 </div>
 
-                                <a href="{{ route('subjects.details', ['subject' => $subject->id]) }}" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200
-                                    dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" wire:navigate>
-                                    View Assignments
-                                </a>
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('subjects.details', ['subject' => $subject->id]) }}" class="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-200
+                                        dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" wire:navigate>
+                                        View Assignments
+                                    </a>
+
+                                    <flux:modal.trigger name="delete-subject">
+                                        <flux:button type="button"
+                                            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-200 bg-white text-red-600 shadow-sm transition
+                                                hover:bg-red-50 dark:border-red-800 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-red-950/40 cursor-pointer"
+                                            data-id="{{ $subject->id }}"
+                                        >
+                                            <flux:icon name="trash" />
+                                        </flux:button>
+                                    </flux:modal.trigger>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,5 +135,6 @@
 
     @include('modals.new-subject-modal')
     @include('modals.edit-subject-modal')
+    @include('modals.delete-subject-modal')
 
 @endsection

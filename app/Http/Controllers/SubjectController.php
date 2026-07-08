@@ -51,4 +51,12 @@ class SubjectController extends Controller
 
         return redirect()->route('subjects.menu')->with('status', 'Subject updated successfully.');
     }
+
+    public function deleteSubject(Request $request)
+    {
+        $subject = Subjects::findOrFail($request->input('id'));
+        $subject->delete();
+
+        return redirect()->route('subjects.menu')->with('status', 'Subject deleted successfully.');
+    }
 }

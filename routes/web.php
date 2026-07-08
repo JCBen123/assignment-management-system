@@ -25,14 +25,14 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.menu');
 Route::post('/subjects', [SubjectController::class, 'addSubject'])->name('subjects.add');
 Route::put('/subjects', [SubjectController::class, 'editSubject'])->name('subjects.update');
-// Route::delete('/subjects/{subject}', [SubjectController::class, 'deleteSubject'])->name('subjects.delete');
+Route::delete('/subjects/delete', [SubjectController::class, 'deleteSubject'])->name('subjects.delete');
 
 // Assignments
 Route::get('/subjects/{subject}/details', [AssignmentController::class, 'index'])->name('subjects.details');
 Route::post('/assignments', [AssignmentController::class, 'addAssignment'])->name('assignments.add');
 Route::put('/assignments', [AssignmentController::class, 'editAssignment'])->name('assignments.update');
 Route::post('/assignments/mark-completed', [AssignmentController::class, 'markAsCompleted'])->name('assignments.markAsCompleted');
-// Route::delete('/assignments/{assignment}', [AssignmentController::class, 'deleteAssignment'])->name('assignments.delete');
+Route::delete('/assignments/delete', [AssignmentController::class, 'deleteAssignment'])->name('assignments.delete');
 
 // Settings
 Route::get('/settings', function () {
