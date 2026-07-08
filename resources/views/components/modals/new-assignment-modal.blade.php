@@ -26,7 +26,7 @@
 
             <flux:field>
                 <flux:label>Additional Remarks</flux:label>
-                <flux:textarea name="details" rows="4" class="resize-none" />
+                <flux:textarea name="remarks" rows="4" class="resize-none" />
             </flux:field>
 
             <div class="flex justify-end gap-3 pt-2">
