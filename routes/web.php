@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/security/enable-2fa', function () {
         return view('pages.settings.enable-2fa');
     })->name('security.enable-2fa');
+
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-as-read');
 
     // Add route for delete account here
     // Route::delete('/others/delete-account', [AuthController::class, 'deleteAccount'])->name('delete-account');
