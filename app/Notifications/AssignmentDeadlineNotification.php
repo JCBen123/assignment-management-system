@@ -11,7 +11,7 @@ class AssignmentDeadlineNotification extends Notification
     use Queueable;
 
     public function __construct(
-        public AssignmentNotificationOption $kind,
+        public AssignmentNotificationOption $type,
         public string $title,
         public string $message,
         public int $assignmentId,
@@ -34,9 +34,8 @@ class AssignmentDeadlineNotification extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'kind' => $this->kind->value,
+            'type' => $this->type->value,
             'assignment_id' => $this->assignmentId,
-            'notification_option' => $this->kind->value,
             'title' => $this->title,
             'message' => $this->message,
             'deadline' => $this->deadline,

@@ -56,35 +56,35 @@ class Assignments extends Model
             $today = \Carbon\Carbon::today();
             $deadline = \Carbon\Carbon::parse($assignment->deadline)->startOfDay();
             $daysUntilDeadline = $today->diffInDays($deadline, false);
-            $notificationKind = null;
+            $notificationType = null;
             $message = null;
 
             if ($assignment->status == AssignmentStatus::PENDING->value) {
                 if ($daysUntilDeadline > 7 && $daysUntilDeadline <= 14) {
-                    $notificationKind = AssignmentNotificationOption::TWO_WEEKS;
+                    $notificationType = AssignmentNotificationOption::TWO_WEEKS;
                     $message = 'Assignment "'.$assignment->title.'" is due in 2 weeks.';
                 } elseif ($daysUntilDeadline > 3 && $daysUntilDeadline <= 7) {
-                    $notificationKind = AssignmentNotificationOption::ONE_WEEK;
+                    $notificationType = AssignmentNotificationOption::ONE_WEEK;
                     $message = 'Assignment "'.$assignment->title.'" is due in 1 week.';
                 } elseif ($daysUntilDeadline > 0 && $daysUntilDeadline <= 3) {
-                    $notificationKind = AssignmentNotificationOption::THREE_DAYS;
+                    $notificationType = AssignmentNotificationOption::THREE_DAYS;
                     $message = 'Assignment "'.$assignment->title.'" is due in 3 days.';
                 } elseif ($daysUntilDeadline == 0) {
-                    $notificationKind = AssignmentNotificationOption::DEADLINE_DAY;
+                    $notificationType = AssignmentNotificationOption::DEADLINE_DAY;
                     $message = 'Assignment "'.$assignment->title.'" is due today.';
                 }
             } else {
-                $notificationKind = AssignmentNotificationOption::OVERDUE;
+                $notificationType = AssignmentNotificationOption::OVERDUE;
                 $message = 'Assignment "'.$assignment->title.'" is overdue.';
             }
 
-            if ($notificationKind === null || $message === null) {
+            if ($notificationType === null || $message === null) {
                 continue;
             }
 
             $exists = $user->notifications()
                 ->where('data->assignment_id', $assignment->id)
-                ->where('data->notification_option', $notificationKind->value)
+                ->where('data->type', $notificationType->value)
                 ->exists();
 
             if ($exists) {
@@ -93,7 +93,7 @@ class Assignments extends Model
 
             $assignment->loadMissing('subject');
             $user->notify(new AssignmentDeadlineNotification(
-                kind: $notificationKind,
+                type: $notificationType,
                 title: $assignment->title,
                 message: $message,
                 assignmentId: $assignment->id,
