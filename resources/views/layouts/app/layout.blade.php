@@ -30,12 +30,12 @@
         @livewireStyles
     </head>
 
-    <body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
+    <body class="bg-gray-100 dark:bg-gray-700 dark:text-white h-screen overflow-none">
         @include('layouts.app.navbar')
 
-        <div class="flex">
+        <div class="flex h-[calc(100vh-4rem)]">
             @include('layouts.app.sidebar')
-            <main class="flex-1 p-6">
+            <main class="flex-1 min-h-0 overflow-y-auto p-6">
                 @yield('content')
             </main>
         </div>

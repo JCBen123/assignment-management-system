@@ -8,9 +8,29 @@ use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subjects::where('user_id', Auth::id())->with('assignments')->get();
+        $query = Subjects::where('user_id', Auth::id())->with('assignments');
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                ->orWhere('code', 'like', "%{$keyword}%");
+            });
+        }
+
+        $sort = $request->input('sort', 'name');
+        $direction = $request->input('direction', 'asc');
+
+        if ($sort === 'recent') {
+            $query->orderBy('created_at', $direction);
+        } else {
+            $query->orderBy('name', $direction);
+        }
+
+        $subjects = $query->get();
 
         return view('pages.assignments.menu', compact('subjects'));
     }

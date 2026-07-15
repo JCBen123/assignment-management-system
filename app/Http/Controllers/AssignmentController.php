@@ -10,11 +10,33 @@ use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller
 {
-    public function index($subject_id)
+    public function index(Request $request, $subject_id)
     {
         $subject = Subjects::where('user_id', Auth::id())->findOrFail($subject_id);
 
-        $assignments = Assignments::where('subject_id', $subject->id)->get();
+        $query = Assignments::where('subject_id', $subject->id);
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'like', "%{$keyword}%")
+                ->orWhere('code', 'like', "%{$keyword}%");
+            });
+        }
+
+        $sort = $request->input('sort', 'name');
+        $direction = $request->input('direction', 'asc');
+
+        if ($sort === 'recent') {
+            $query->orderBy('created_at', $direction);
+        } else if ($sort === 'name') {
+            $query->orderBy('title', $direction);
+        } else {
+            $query->orderBy('deadline', $direction);
+        }
+
+        $assignments = $query->get();
 
         return view('pages.assignments.details', compact('subject', 'assignments'));
     }

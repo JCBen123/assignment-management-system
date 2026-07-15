@@ -5,7 +5,7 @@ const texts = document.querySelectorAll('.sidebar-text');
 let isCollapsed = false;
 
 function collapseSidebar() {
-    sidebar.classList.replace('w-64', 'w-20');
+    sidebar.classList.replace('w-64', 'w-24');
     sidebar.classList.add('sidebar-collapsed');
     isCollapsed = true;
 
@@ -19,7 +19,7 @@ function collapseSidebar() {
 }
 
 function expandSidebar() {
-    sidebar.classList.replace('w-20', 'w-64');
+    sidebar.classList.replace('w-24', 'w-64');
     sidebar.classList.remove('sidebar-collapsed');
     isCollapsed = false;
 
