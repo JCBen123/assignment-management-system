@@ -79,9 +79,19 @@
                 @keydown.escape.window="open = false"
                 class="flex items-center space-x-2 cursor-pointer font-medium focus:outline-none hover:text-gray-600 dark:hover:text-gray-300"
             >
+                @php
+                    $profileImage = auth()->user()->profile_image;
+                @endphp
+
                 <span>{{ auth()->check() ? auth()->user()->name : 'Guest' }}</span>
                 <div class="w-8 h-8 rounded-full bg-gray-500 overflow-hidden">
-                    <!-- for profile pic -->
+                    @if ($profileImage)
+                        <img src="{{ asset('storage/'.$profileImage->path) }}" alt="Profile picture" class="h-8 w-8 rounded-full object-cover ring-2 ring-sky-200 dark:ring-sky-900">
+                    @else
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 text-2xl font-bold text-sky-700 dark:bg-sky-900/40 dark:text-sky-200">
+                            {{ auth()->user()->initials() }}
+                        </div>
+                    @endif
                 </div>
             </button>
 

@@ -12,11 +12,11 @@
             </li>
             @auth
                 <li>
-                    <a href="/profile" class="flex items-center px-3 py-2 rounded relative
+                    <a href="/personal-info" class="flex items-center px-3 py-2 rounded relative
                         hover:bg-gray-200 dark:hover:bg-gray-600" wire:navigate>
                         <div class="flex items-center gap-x-3">
                             <flux:icon name="user" />
-                            <span>Profile</span>
+                            <span>Personal Info</span>
                         </div>
                     </a>
                 </li>

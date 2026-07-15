@@ -27,11 +27,20 @@
         </li>
     </ul>
 
-    <div class="mt-auto border-t border-gray-800/20 pt-3 dark:border-gray-700/50">
-        <a href="/settings" class="flex w-full items-center gap-3 px-5 py-4 rounded
-            hover:bg-gray-200 dark:hover:bg-gray-700 relative">
-            <flux:icon name="cog-6-tooth" />
-            <span class="sidebar-text">Settings</span>
-        </a>
+    <div class="mt-auto space-y-3 ">
+        <div>
+            <a href="/profile" class="flex w-full items-center gap-3 px-5 py-4 rounded
+                hover:bg-gray-200 dark:hover:bg-gray-700 relative">
+                <flux:icon name="user-circle" />
+                <span class="sidebar-text">Profile</span>
+            </a>
+        </div>
+        <div class="border-t border-gray-800/20 pt-3 dark:border-gray-700/50">
+            <a href="/settings" class="flex w-full items-center gap-3 px-5 py-4 rounded
+                hover:bg-gray-200 dark:hover:bg-gray-700 relative">
+                <flux:icon name="cog-6-tooth" />
+                <span class="sidebar-text">Settings</span>
+            </a>
+        </div>
     </div>
 </aside>

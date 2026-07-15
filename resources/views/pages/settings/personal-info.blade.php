@@ -1,10 +1,10 @@
 @extends('layouts.app.layout')
 
-@section('title', 'Profile')
+@section('title', 'Personal Info')
 
 @section('content')
-    <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form method="POST" action="{{ route('profile.update') }}" class="my-6 w-full space-y-6">
+    <x-pages::settings.layout :heading="__('Personal Info')" :subheading="__('Update your name and email address')">
+        <form method="POST" action="{{ route('personal-info.update') }}" class="my-6 w-full space-y-6">
             @csrf
             @method('PUT')
 

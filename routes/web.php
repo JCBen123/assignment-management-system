@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
@@ -35,6 +36,9 @@ Route::put('/assignments', [AssignmentController::class, 'editAssignment'])->nam
 Route::post('/assignments/mark-completed', [AssignmentController::class, 'markAsCompleted'])->name('assignments.markAsCompleted');
 Route::delete('/assignments/delete', [AssignmentController::class, 'deleteAssignment'])->name('assignments.delete');
 
+//Profile
+Route::get('/profile', [ProfileController::class, 'mount'])->name('profile');
+
 //Schedule
 Route::get('/schedule', [AssignmentController::class, 'schedule'])->name('schedule');
 
@@ -46,7 +50,10 @@ Route::get('/settings', function () {
 // Settings
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'mount'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/picture', [ProfileController::class, 'uploadProfilePicture'])->name('profile.picture.upload');
+
+    Route::get('/personal-info', [InfoController::class, 'mount'])->name('personal-info');
+    Route::put('/personal-info', [InfoController::class, 'update'])->name('personal-info.update');
 
     Route::get('/security', function () {
         return view('pages.settings.security');

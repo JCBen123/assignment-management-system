@@ -34,6 +34,16 @@ class User extends Authenticatable implements PasskeyUser
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
+    public function subjects()
+    {
+        return $this->hasMany(Subjects::class, 'user_id');
+    }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'user_id');
+    }
+
     public function unreadNotificationsCount(): int
     {
         return $this->unreadNotifications()->count();
@@ -62,5 +72,10 @@ class User extends Authenticatable implements PasskeyUser
         return Str::length($initials) > 1
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
+    }
+
+    public function getProfileImageAttribute()
+    {
+        return $this->media()->where('path', 'like', 'profile-pictures/%')->first();
     }
 }
