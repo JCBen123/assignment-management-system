@@ -78,3 +78,30 @@ button, span {
     transition: opacity 300ms ease-in-out, width 300ms ease-in-out;
     white-space: nowrap;
 }
+
+/* Calender */
+@layer components {
+    /* Light mode */
+    .fc .fc-col-header-cell {
+        @apply bg-white text-gray-900 border border-gray-300;
+    }
+
+    .fc .fc-col-header-cell a {
+        @apply text-gray-900 no-underline;
+    }
+
+    /* Dark mode */
+    .dark .fc .fc-col-header-cell {
+        @apply bg-gray-800 text-white border border-gray-700;
+    }
+
+    .dark .fc .fc-col-header-cell a {
+        @apply text-white;
+    }
+
+    .fc-daygrid-event {
+        margin: 0 2px 2px;
+        padding-left: 6px;
+        padding-right: 6px
+    }
+}

@@ -36,9 +36,7 @@ Route::post('/assignments/mark-completed', [AssignmentController::class, 'markAs
 Route::delete('/assignments/delete', [AssignmentController::class, 'deleteAssignment'])->name('assignments.delete');
 
 //Schedule
-Route::get('/schedule', function () {
-    return view('pages.assignments.schedule');
-});
+Route::get('/schedule', [AssignmentController::class, 'schedule'])->name('schedule');
 
 // Settings
 Route::get('/settings', function () {

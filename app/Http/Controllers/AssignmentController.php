@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller
 {
+    public function schedule()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $assignments = Assignments::query()
+            ->whereHas('subject', function ($query): void {
+                $query->where('user_id', Auth::id());
+            })
+            ->whereIn('status', [AssignmentStatus::PENDING->value, AssignmentStatus::OVERDUE->value])
+            ->with('subject')
+            ->orderBy('deadline', 'asc')
+            ->get();
+
+        return view('pages.assignments.schedule', compact('assignments'));
+    }
+
     public function index(Request $request, $subject_id)
     {
         $subject = Subjects::where('user_id', Auth::id())->findOrFail($subject_id);
