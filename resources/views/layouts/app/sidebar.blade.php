@@ -11,7 +11,7 @@
         </li>
 
         <li>
-            <a href="" class="flex items-center gap-3 px-5 py-4 rounded
+            <a href="/schedule" class="flex items-center gap-3 px-5 py-4 rounded
             hover:bg-gray-200 dark:hover:bg-gray-700 relative">
                 <flux:icon name="calendar-days" />
                 <span class="sidebar-text">Calendar</span>
