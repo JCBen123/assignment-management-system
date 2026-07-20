@@ -32,7 +32,7 @@
     >
         <div>
             <div class="flex mb-2">
-                <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('subjects.menu') }}"
+                <a href="{{ route('subjects.menu') }}"
                     class="flex gap-2 cursor-pointer" wire:navigate
                 >
                     <flux:icon name="arrow-left-circle"></flux:icon>

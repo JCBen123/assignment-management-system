@@ -96,3 +96,32 @@ nav, aside, body{
         padding-right: 6px
     }
 }
+
+#sidebar {
+    width: 16rem;
+    transition: width 300ms ease-in-out;
+}
+
+#sidebar.sidebar-collapsed,
+.sidebar-initial-collapsed #sidebar {
+    width: 6rem;
+}
+
+.sidebar-text {
+    @apply inline-block whitespace-nowrap transition-all duration-300 ease-in-out;
+
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sidebar-collapsed .sidebar-text {
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+}
+
+.sidebar-initial-collapsed .sidebar-text {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+}

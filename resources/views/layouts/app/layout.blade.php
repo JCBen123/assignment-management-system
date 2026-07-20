@@ -23,6 +23,10 @@
                     )
                 }
             })
+
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                document.documentElement.classList.add('sidebar-initial-collapsed');
+            }
         </script>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -34,7 +38,9 @@
         @include('layouts.app.navbar')
 
         <div class="flex h-[calc(100vh-4rem)]">
-            @include('layouts.app.sidebar')
+            @if (auth()->check())
+                @include('layouts.app.sidebar')
+            @endif
             <main class="flex-1 min-h-0 overflow-y-auto p-6">
                 @yield('content')
             </main>
