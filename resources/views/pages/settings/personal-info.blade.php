@@ -8,7 +8,7 @@
             @csrf
             @method('PUT')
 
-            <flux:input name="name" :label="__('Name')" type="text" autofocus autocomplete="name" value="{{ old('name', $user->name) }}" required />
+            <flux:input name="name" :label="__('Name')" type="text" autocomplete="name" value="{{ old('name', $user->name) }}" required />
 
             <flux:input name="email" :label="__('Email')" type="email" autocomplete="email" value="{{ old('email', $user->email) }}" disabled />
 

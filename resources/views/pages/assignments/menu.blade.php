@@ -3,19 +3,6 @@
 @section('title', 'Assignments Dashboard')
 
 @section('content')
-
-    @if (session('status'))
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                Flux.toast({
-                    heading: 'Success',
-                    text: "{{ session('status') }}",
-                    variant: 'success',
-                })
-            })
-        </script>
-    @endif
-
     <div class="flex flex-col gap-3">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
@@ -157,7 +144,7 @@
                                                 };
                                             @endphp
 
-                                            <flux:tooltip content="{{ ucfirst($status) }}" position="bottom">
+                                            <div x-data="{ show: false }" class="relative inline-flex" @mouseenter="show = true" @mouseleave="show = false">
                                                 <div class="flex items-center rounded-full border border-gray-200 px-2 py-1.5 text-sm dark:border-gray-700 {{ $statusClass }}">
                                                     <span class="inline-flex h-6 w-10 items-center justify-center rounded-full text-xs font-semibold">
                                                         <flux:icon name="{{ $statusIcon }}" />
@@ -165,7 +152,14 @@
 
                                                     <span class="ml-1 text-xs font-medium text-gray-600 dark:text-gray-300">{{ $count }}</span>
                                                 </div>
-                                            </flux:tooltip>
+
+                                                <div x-show="show" x-transition
+                                                    class="absolute left-1/2 top-full z-[9999] mt-2 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-1 text-xs font-medium
+                                                        bg-gray-900 text-white shadow-lg dark:bg-gray-700"
+                                                >
+                                                    {{ ucfirst($status) }}
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </div>
 
