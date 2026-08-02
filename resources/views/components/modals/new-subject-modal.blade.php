@@ -9,14 +9,15 @@
 
         <form method="POST" action="{{ route('subjects.add') }}" class="space-y-4">
             @csrf
+
             <flux:field>
                 <flux:label>Subject Name</flux:label>
-                <flux:input name="name" type="text" placeholder="e.g. Literature" />
+                <flux:input name="name" type="text" placeholder="e.g. Literature" required />
             </flux:field>
 
             <flux:field>
                 <flux:label>Subject Code</flux:label>
-                <flux:input name="code" type="text" placeholder="e.g. LIT301" />
+                <flux:input name="code" type="text" placeholder="e.g. LIT301" required />
             </flux:field>
 
             <flux:field>
@@ -28,6 +29,7 @@
                 <flux:button type="submit" variant="primary" class="cursor-pointer">
                     Add
                 </flux:button>
+
                 <flux:modal.close>
                     <flux:button variant="ghost" class="cursor-pointer">
                         Cancel

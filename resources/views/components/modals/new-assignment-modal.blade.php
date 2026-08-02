@@ -16,12 +16,12 @@
 
             <flux:field>
                 <flux:label>Assignment Title</flux:label>
-                <flux:input name="title" type="text" placeholder="e.g. Chapter Review" />
+                <flux:input name="title" type="text" placeholder="e.g. Chapter Review" required/>
             </flux:field>
 
             <flux:field>
                 <flux:label>Due Date</flux:label>
-                <flux:input name="deadline" type="date" />
+                <flux:input name="deadline" type="date" required/>
             </flux:field>
 
             <flux:field>
