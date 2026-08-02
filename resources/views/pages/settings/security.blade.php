@@ -16,6 +16,7 @@
                             </div>
                         </a>
                     </li>
+
                     <li>
                         <a href="{{ route('security.verify-email') }}" class="flex items-center px-3 py-2 rounded relative
                         hover:bg-gray-200 dark:hover:bg-gray-600" wire:navigate>
@@ -25,6 +26,7 @@
                             </div>
                         </a>
                     </li>
+
                     <li>
                         <a href="{{ route('security.enable-2fa') }}" class="flex items-center px-3 py-2 rounded relative
                         hover:bg-gray-200 dark:hover:bg-gray-600" wire:navigate>

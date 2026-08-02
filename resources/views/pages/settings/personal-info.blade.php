@@ -8,11 +8,9 @@
             @csrf
             @method('PUT')
 
-            <flux:input name="name" :label="__('Name')" type="text" autofocus autocomplete="name"
-                value="{{ old('name', $user->name) }}" required />
+            <flux:input name="name" :label="__('Name')" type="text" autofocus autocomplete="name" value="{{ old('name', $user->name) }}" required />
 
-            <flux:input name="email" :label="__('Email')" type="email" autocomplete="email"
-                value="{{ old('email', $user->email) }}" disabled />
+            <flux:input name="email" :label="__('Email')" type="email" autocomplete="email" value="{{ old('email', $user->email) }}" disabled />
 
             <div class="flex items-center gap-6">
                 <flux:button variant="primary" type="submit" class="cursor-pointer" data-test="update-profile-button">

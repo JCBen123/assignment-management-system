@@ -4,6 +4,7 @@
         @if (auth()->check())
             <flux:icon name="bars-3" class="h-10 w-auto mt-3 mb-3 cursor-pointer transition-none" id="sidebar-toggle" />
         @endif
+
         <a href="/" class="h-full flex items-center">
             <img src="{{ asset('storage/logo/ams-light.png') }}" alt="logo-light" class="h-10 w-auto mt-3 mb-3 block dark:hidden">
             <img src="{{ asset('storage/logo/ams-dark.png') }}" alt="logo-dark" class="h-10 w-auto mt-3 mb-3 hidden dark:block">
@@ -37,12 +38,14 @@
                             @if (auth()->user()->unreadNotificationsCount() > 0)
                                 <form method="POST" action="{{ route('notifications.mark-all-as-read') }}">
                                     @csrf
+
                                     <button type="submit" class="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer">
                                         Mark all as read
                                     </button>
                                 </form>
                             @endif
                         </div>
+
                         <div class="max-h-72 overflow-y-auto">
                             @forelse (auth()->user()->notifications()->latest()->take(8)->get() as $notification)
                                 <div class="flex items-start justify-between gap-2 border-b border-gray-100 px-4 py-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700">
@@ -57,6 +60,7 @@
                                     @if ($notification->read_at == null)
                                         <form method="POST" action="{{ route('notifications.mark-as-read', $notification) }}">
                                             @csrf
+
                                             <button type="submit" class="rounded p-1 text-green-600 transition hover:bg-green-100 hover:text-green-700 dark:hover:bg-green-900/30 cursor-pointer">
                                                 <flux:icon name="check" class="h-4 w-4" />
                                             </button>
@@ -76,20 +80,17 @@
 
         <!-- User section -->
         <div x-data="{ open: false }" x-cloak class="relative">
-            <button
-                type="button"
-                @click="open = !open"
-                @click.away="open = false"
-                @keydown.escape.window="open = false"
+            <button type="button" @click="open = !open" @click.away="open = false" @keydown.escape.window="open = false"
                 class="flex items-center space-x-2 cursor-pointer font-medium focus:outline-none hover:text-gray-600 dark:hover:text-gray-300"
             >
-
                 <span>{{ auth()->check() ? auth()->user()->name : 'Guest' }}</span>
+
                 <div class="w-8 h-8 rounded-full bg-gray-500 overflow-hidden">
                     @if (auth()->check())
                         @php
                             $profileImage = auth()->user()->profile_image;
                         @endphp
+
                         @if ($profileImage)
                             <img src="{{ asset('storage/'.$profileImage->path) }}" alt="Profile picture" class="h-8 w-8 rounded-full object-cover ring-2 ring-sky-200 dark:ring-sky-900">
                         @else
@@ -113,6 +114,7 @@
                         >
                             {{ __('Log in') }}
                         </a>
+
                         <a href="/register" wire:navigate
                             class="block px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
@@ -121,8 +123,8 @@
                     @else
                         <form method="POST" action="/logout" class="w-full">
                             @csrf
-                            <button
-                                type="submit"
+
+                            <button type="submit"
                                 class="w-full px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 {{ __('Log out') }}

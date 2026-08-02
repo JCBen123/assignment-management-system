@@ -27,23 +27,22 @@
     @endphp
 
     <div x-data="{activeTab: '{{ $activeTab }}', showViewModal: false, selectedAssignment: null,
-        sortBy: '{{ $sortBy }}', sortDirection: '{{ $sortDirection }}'}"
-        class="flex flex-col gap-3"
+        sortBy: '{{ $sortBy }}', sortDirection: '{{ $sortDirection }}'}" class="flex flex-col gap-3"
     >
         <div>
             <div class="flex mb-2">
-                <a href="{{ route('subjects.menu') }}"
-                    class="flex gap-2 cursor-pointer" wire:navigate
-                >
-                    <flux:icon name="arrow-left-circle"></flux:icon>
+                <a href="{{ route('subjects.menu') }}" class="flex gap-2 cursor-pointer" wire:navigate>
+                    <flux:icon name="arrow-left-circle" />
                     Back
                 </a>
             </div>
+
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                         {{ $subject['code'] }} - {{ $subject['name'] }}
                     </h1>
+
                     <p class="text-gray-700 dark:text-gray-300">
                         {{ $subject['description'] }}
                     </p>
@@ -67,15 +66,9 @@
                                 Keyword
                             </label>
 
-                            <input
-                                id="keyword"
-                                type="text"
-                                name="keyword"
-                                value="{{ request('keyword') }}"
-                                placeholder="Search assignments..."
+                            <input id="keyword" type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Search assignments..."
                                 class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                    focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                             >
                         </div>
 
@@ -84,12 +77,9 @@
                                 Sort By
                             </label>
 
-                            <select
-                                id="sort"
-                                name="sort"
+                            <select id="sort" name="sort"
                                 class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                    focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name</option>
                                 <option value="deadline" {{ request('sort') == 'deadline' ? 'selected' : '' }}>Deadline</option>
@@ -102,36 +92,31 @@
                                 Order
                             </label>
 
-                            <select
-                                id="direction"
-                                name="direction"
+                            <select id="direction" name="direction"
                                 class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                    focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="asc" {{ request('direction') == 'asc' ? 'selected' : '' }}>Ascending</option>
                                 <option value="desc" {{ request('direction') == 'desc' ? 'selected' : '' }}>Descending</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="flex w-full gap-2 md:w-auto">
-                        <button
-                            type="submit"
+                        <button type="submit"
                             class="inline-flex flex-1 items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm
-                                transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500
-                                md:flex-none cursor-pointer"
+                                transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 md:flex-none cursor-pointer"
                         >
                             Search
                         </button>
 
                         <a href="{{ route('subjects.details', ['subject' => $subject->id]) }}"
                             class="inline-flex flex-1 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm
-                                transition hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400
-                                dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600
-                                md:flex-none cursor-pointer"
+                                transition md:flex-none cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400
+                                dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                         >
                             Reset
-                    </a>
+                        </a>
                     </div>
                 </div>
             </form>
@@ -141,9 +126,7 @@
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4 dark:border-gray-700">
                 <div class="flex flex-wrap gap-2">
                     @foreach ($tabs as $tab)
-                        <button
-                            type="button"
-                            class="rounded-full px-4 py-2 text-sm font-medium transition"
+                        <button type="button" class="rounded-full px-4 py-2 text-sm font-medium transition"
                             :class="activeTab === '{{ $tab['key'] }}' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'"
                             @click="activeTab = '{{ $tab['key'] }}'"
                         >
@@ -176,6 +159,7 @@
                                     <div class="flex items-center gap-2">
                                         <div>
                                             <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $assignment['title'] }}</h3>
+
                                             <p class="text-sm text-gray-600 dark:text-gray-300">
                                                 Due: {{ \Carbon\Carbon::parse($assignment->deadline)->format('d M Y') }}
                                                 @if ($assignment->status != 'completed')
@@ -201,6 +185,7 @@
                                                 @endif
                                             </p>
                                         </div>
+
                                         @if ($assignment->status != 'completed')
                                             <flux:modal.trigger name="edit-assignment">
                                                 <flux:button variant="ghost" size="sm" class="cursor-pointer"
@@ -244,16 +229,13 @@
                                             </flux:modal.trigger>
 
                                             <flux:modal.trigger name="delete-assignment">
-                                                <flux:button type="button"
+                                                <flux:button type="button" data-id="{{ $assignment->id }}"
                                                         class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-500 bg-white text-red-500 shadow-sm transition
-                                                            hover:border-red-600 hover:bg-red-50 hover:text-red-600
-                                                            dark:bg-gray-800 dark:border-red-700 dark:text-red-400
-                                                            dark:hover:border-red-600 dark:hover:bg-red-950/40 dark:hover:text-red-300
-                                                            cursor-pointer"
-                                                        data-id="{{ $assignment->id }}"
-                                                    >
-                                                        <flux:icon name="trash" />
-                                                    </flux:button>
+                                                            hover:border-red-600 hover:bg-red-50 hover:text-red-600 dark:bg-gray-800 dark:border-red-700 dark:text-red-400
+                                                            dark:hover:border-red-600 dark:hover:bg-red-950/40 dark:hover:text-red-300 cursor-pointer"
+                                                >
+                                                    <flux:icon name="trash" />
+                                                </flux:button>
                                             </flux:modal.trigger>
                                         </div>
                                     </div>

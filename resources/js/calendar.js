@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const el = document.createElement('div');
 
             el.className = 'overflow-hidden cursor-pointer';
-
             el.innerHTML = `
                 <div class="font-bold truncate">
                     ${info.event.extendedProps.subject_name}
@@ -58,6 +57,5 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     window.calendar.render()
-
     window.addEventListener('resize', () => window.calendar.updateSize())
 })

@@ -2,7 +2,6 @@
     <div class="space-y-6">
         <div class="flex items-center gap-6">
                 <flux:heading size="lg" x-text="selectedAssignment?.title || 'Assignment Details'"></flux:heading>
-
                 <span class="mt-1 inline-flex rounded-full px-2 py-1 text-xs font-medium"
                     :class="{
                         'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-200': selectedAssignment?.status === 'pending',

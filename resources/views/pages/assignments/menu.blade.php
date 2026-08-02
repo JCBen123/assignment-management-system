@@ -22,6 +22,7 @@
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                     Assignments Dashboard
                 </h1>
+
                 <p class="text-gray-700 dark:text-gray-300">
                     Organize your subjects for easier review of assignments
                 </p>
@@ -37,6 +38,7 @@
         @if ($subjects->count() > 0)
             <form method="GET" action="{{ route('subjects.menu') }}">
                 @csrf
+
                 <div class="rounded-2xl space-y-4 border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                         <div class="flex-1">
@@ -44,15 +46,9 @@
                                 Keyword
                             </label>
 
-                            <input
-                                id="keyword"
-                                type="text"
-                                name="keyword"
-                                value="{{ request('keyword') }}"
-                                placeholder="Search subjects..."
+                            <input id="keyword" type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Search subjects..."
                                 class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                    focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                             >
                         </div>
 
@@ -61,12 +57,8 @@
                                 Sort By
                             </label>
 
-                            <select
-                                id="sort"
-                                name="sort"
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                            <select id="sort" name="sort" class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
+                                focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name</option>
                                 <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Recently Added</option>
@@ -78,36 +70,31 @@
                                 Order
                             </label>
 
-                            <select
-                                id="direction"
-                                name="direction"
+                            <select id="direction" name="direction"
                                 class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                    focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="asc" {{ request('direction') == 'asc' ? 'selected' : '' }}>Ascending</option>
                                 <option value="desc" {{ request('direction') == 'desc' ? 'selected' : '' }}>Descending</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="flex w-full gap-2 md:w-auto">
-                        <button
-                            type="submit"
+                        <button type="submit"
                             class="inline-flex flex-1 items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm
-                                transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500
-                                md:flex-none cursor-pointer"
+                                transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 md:flex-none cursor-pointer"
                         >
                             Search
                         </button>
 
                         <a href="{{ route('subjects.menu') }}"
                             class="inline-flex flex-1 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm
-                                transition hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400
-                                dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600
+                                transition hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600
                                 md:flex-none cursor-pointer"
                         >
                             Reset
-                    </a>
+                        </a>
                     </div>
                 </div>
             </form>
@@ -117,6 +104,7 @@
             <div class="mb-4 flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">View Subjects</h2>
+
                     <p class="text-sm text-gray-600 dark:text-gray-300">
                         Expand each subject to review its assignments
                     </p>
@@ -126,7 +114,6 @@
             <div class="overflow-y-auto">
                 <div class="grid grid-cols-1 gap-4">
                     @forelse ($subjects as $subject)
-
                         <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/60">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="flex items-center gap-2">
@@ -134,6 +121,7 @@
                                         <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $subject['name'] }}</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">{{ $subject['code'] }}</p>
                                     </div>
+
                                     <flux:modal.trigger name="edit-subject">
                                         <flux:button variant="ghost" size="sm" class="cursor-pointer"
                                             data-id="{{ $subject->id }}" data-name="{{ $subject->name }}"
@@ -155,11 +143,13 @@
                                         @foreach (['pending', 'completed', 'overdue'] as $status)
                                             @php
                                                 $count = $statusCounts[$status] ?? 0;
+
                                                 $statusClass = match ($status) {
                                                     'completed' => 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-200',
                                                     'overdue' => 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-200',
                                                     default => 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-200',
                                                 };
+
                                                 $statusIcon = match ($status) {
                                                     'completed' => 'check-circle',
                                                     'overdue' => 'exclamation-circle',
@@ -172,10 +162,10 @@
                                                     <span class="inline-flex h-6 w-10 items-center justify-center rounded-full text-xs font-semibold">
                                                         <flux:icon name="{{ $statusIcon }}" />
                                                     </span>
+
                                                     <span class="ml-1 text-xs font-medium text-gray-600 dark:text-gray-300">{{ $count }}</span>
                                                 </div>
                                             </flux:tooltip>
-
                                         @endforeach
                                     </div>
 
@@ -186,10 +176,9 @@
                                         </a>
 
                                         <flux:modal.trigger name="delete-subject">
-                                            <flux:button type="button"
+                                            <flux:button type="button" data-id="{{ $subject->id }}"
                                                 class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-200 bg-white text-red-600 shadow-sm transition
                                                     hover:bg-red-50 dark:border-red-800 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-red-950/40 cursor-pointer"
-                                                data-id="{{ $subject->id }}"
                                             >
                                                 <flux:icon name="trash" />
                                             </flux:button>
@@ -198,15 +187,12 @@
                                 </div>
                             </div>
                         </div>
-
                     @empty
-
                         <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-900/60">
                             <p class="text-gray-600 dark:text-gray-300">
                                 No subjects added
                             </p>
                         </div>
-
                     @endforelse
                 </div>
             </div>

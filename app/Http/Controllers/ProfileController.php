@@ -60,7 +60,6 @@ class ProfileController extends Controller
         ]);
 
         $user = User::findOrFail(Auth::id());
-
         $path = $request->file('profile_picture')->store('profile-pictures', 'public');
 
         $user->media()->delete();

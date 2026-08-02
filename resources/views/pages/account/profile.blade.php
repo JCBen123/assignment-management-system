@@ -49,6 +49,7 @@
                             <h1 class="text-2xl font-bold">{{ $user->name }}</h1>
                             <a href="/personal-info" class="self-end text-sm underline text-blue-400 hover:text-blue-200">Edit</a>
                         </div>
+
                         <p class="text-sm text-gray-500 dark:text-gray-300">{{ $user->email }}</p>
                     </div>
                 </div>

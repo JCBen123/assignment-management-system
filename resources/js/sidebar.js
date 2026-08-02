@@ -22,16 +22,13 @@ function initSidebar() {
 
     applySidebarState();
 
-    // Prevent duplicate listeners
     toggleBtn.replaceWith(toggleBtn.cloneNode(true));
 
     const newToggleBtn = document.getElementById('sidebar-toggle');
 
     newToggleBtn.addEventListener('click', () => {
         isCollapsed = !isCollapsed;
-
         sidebar.classList.toggle('sidebar-collapsed', isCollapsed);
-
         localStorage.setItem('sidebarCollapsed', isCollapsed);
 
         updateCalendar();

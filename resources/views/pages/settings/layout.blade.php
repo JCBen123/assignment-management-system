@@ -10,6 +10,7 @@
                     </div>
                 </a>
             </li>
+
             @auth
                 <li>
                     <a href="/personal-info" class="flex items-center px-3 py-2 rounded relative
@@ -20,6 +21,7 @@
                         </div>
                     </a>
                 </li>
+
                 <li>
                     <a href="/security" class="flex items-center gap-3 px-3 py-2 rounded relative
                         hover:bg-gray-200 dark:hover:bg-gray-600" wire:navigate>

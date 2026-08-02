@@ -52,7 +52,6 @@ class Assignments extends Model
         $sent = 0;
 
         foreach ($assignments as $assignment) {
-
             $today = \Carbon\Carbon::today();
             $deadline = \Carbon\Carbon::parse($assignment->deadline)->startOfDay();
             $daysUntilDeadline = $today->diffInDays($deadline, false);

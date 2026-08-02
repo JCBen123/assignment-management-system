@@ -31,7 +31,6 @@ class AssignmentController extends Controller
     public function index(Request $request, $subject_id)
     {
         $subject = Subjects::where('user_id', Auth::id())->findOrFail($subject_id);
-
         $query = Assignments::where('subject_id', $subject->id);
 
         if ($request->filled('keyword')) {
