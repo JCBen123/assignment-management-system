@@ -50,7 +50,6 @@ Route::get('/settings', function () {
     return view('pages.settings.settings');
 });
 
-// Settings
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'mount'])->name('profile');
     Route::post('/profile/picture', [ProfileController::class, 'uploadProfilePicture'])->name('profile.picture.upload');
@@ -62,27 +61,8 @@ Route::middleware('auth')->group(function () {
         return view('pages.settings.security');
     })->name('security');
 
-    Route::get('/security/update-password', function () {
-        return view('pages.settings.update-password');
-    })->name('security.update-password');
-
-    Route::put('/security/update-password', [AuthController::class, 'updatePassword'])->name('security.update-password');
-
-    Route::get('/security/verify-email', function () {
-        return view('pages.settings.verify-email');
-    })->name('security.verify-email');
-
-    // Route::post('/security/verify-email', [AuthController::class, 'resendVerificationNotification'])->name('security.verification.resend');
-
-    Route::get('/security/enable-2fa', function () {
-        return view('pages.settings.enable-2fa');
-    })->name('security.enable-2fa');
-
     Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-as-read');
-
-    // Add route for delete account here
-    // Route::delete('/others/delete-account', [AuthController::class, 'deleteAccount'])->name('delete-account');
 });
 
 require __DIR__.'/settings.php';
